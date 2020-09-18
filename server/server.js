@@ -62,6 +62,6 @@ app.use('/', routes)
 //   res.sendFile(path.join(__dirname, './dist/index.html'))
 // })
 
-const port = config.PORT || 8080
+const port = process.env.PORT || 8080
 app.listen(port)
 console.log(`app is listening on port: ${port}`)
