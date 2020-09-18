@@ -41,7 +41,7 @@ export default {
           message: 'user Email and Password are mandatory',
         })
 
-      const result = await fetch('http://localhost/api/signin', {
+      const result = await fetch(process.env.MAIN_URL + 'api/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -56,7 +56,8 @@ export default {
       else console.log({status: result.status, message: result.message}) //throw {status: result.status, message: result.message}
     },
     async getLocation() {
-      const result = await fetch('http://localhost/api/location', {
+      // const result = await fetch('http://localhost/api/location', {
+      const result = await fetch(process.env.MAIN_URL + 'api/location', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
