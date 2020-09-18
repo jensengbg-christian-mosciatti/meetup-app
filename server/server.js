@@ -1,6 +1,8 @@
+const REDIS_URL = process.env.REDIS_URL
+
 require('dotenv').config()
 const redis = require('redis')
-const client = redis.createClient(process.env.REDIS_URL)
+const client = redis.createClient(REDIS_URL)
 exports.client = client
 
 const express = require('express')
