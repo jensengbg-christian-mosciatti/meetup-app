@@ -42,16 +42,13 @@ export default {
           message: 'user Email and Password are mandatory',
         })
 
-      const result = await fetch(
-        'https://chrimox-meetup-app.herokuapp.com/api/signin',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-          body: JSON.stringify(this.userData),
+      const result = await fetch('/api/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
         },
-      )
+        body: JSON.stringify(this.userData),
+      })
         .then(data => data.json())
         .then(res => JSON.parse(JSON.stringify(res)))
       // console.log('fetchresult', result)
@@ -61,15 +58,12 @@ export default {
     },
     async getLocation() {
       // const result = await fetch('http://localhost/api/location', {
-      const result = await fetch(
-        'https://chrimox-meetup-app.herokuapp.com/api/location',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
+      const result = await fetch('/api/location', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
         },
-      )
+      })
         .then(data => data.json())
         .then(res => JSON.parse(JSON.stringify(res)))
       // console.log('fetchresult', result)
