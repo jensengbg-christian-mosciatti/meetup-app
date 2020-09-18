@@ -21,7 +21,7 @@
 </template>
 
 <script>
-const main_url = 'https://chrimox-meetup-app.herokuapp.com/'
+// const main_url = 'https://chrimox-meetup-app.herokuapp.com/'
 export default {
   name: 'SignIn',
   data() {
