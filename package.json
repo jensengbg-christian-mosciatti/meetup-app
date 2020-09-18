@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "startdev": "NODE_ENV=development node ./server/server.js "
+    "startdev": "NODE_ENV=development node ./server/server.js ",
+    "start": "NODE_ENV=production node ./server/server.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
