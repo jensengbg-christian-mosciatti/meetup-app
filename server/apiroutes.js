@@ -93,7 +93,7 @@ router.post('/signin', (req, res) => {
 })
 
 router.get('/location', (req, res) => {
-  console.log(req.connection.remoteAddress)
+  console.log(req.connection)
   res.send({ status: 200 })
 })
 
