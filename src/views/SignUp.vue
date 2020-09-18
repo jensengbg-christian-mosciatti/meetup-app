@@ -54,7 +54,7 @@ export default {
           message: 'user Name, Email and Password are mandatory',
         })
 
-      const result = await fetch('http://localhost:8080/api/signup', {
+      const result = await fetch('http://localhost/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',

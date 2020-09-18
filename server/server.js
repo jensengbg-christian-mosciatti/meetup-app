@@ -9,14 +9,15 @@ const cors = require('cors')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 
-// const serveStatic = require('serve-static')
-// const path = require('path')
+const serveStatic = require('serve-static')
+const path = require('path')
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use('/', serveStatic(path.join(__dirname, '../dist')))
 app.use(
   session({
     store: new RedisStore({ client: client }),
@@ -39,10 +40,10 @@ const routes = require('./routes')
 app.use('/api/', apiroutes)
 app.use('/', routes)
 
-app.use(function (req, res, next) {
-  console.log(req.url)
-  next()
-})
+// app.use(function (req, res, next) {
+//   console.log(req.url)
+//   next()
+// })
 
 //here we are configuring dist to serve app files
 // app.use('/', serveStatic(path.join(__dirname, './dist')))
