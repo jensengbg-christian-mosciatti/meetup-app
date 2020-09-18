@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import config from '../../shared/environment.js'
-console.log('config: ', config)
 export default {
   name: 'SignIn',
   data() {
@@ -43,7 +41,7 @@ export default {
           message: 'user Email and Password are mandatory',
         })
 
-      const result = await fetch(config.MAIN_URL + 'api/signin', {
+      const result = await fetch(process.env.VUE_APP_MAIN_URL + 'api/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -59,12 +57,15 @@ export default {
     },
     async getLocation() {
       // const result = await fetch('http://localhost/api/location', {
-      const result = await fetch(config.MAIN_URL + 'api/location', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
+      const result = await fetch(
+        process.env.VUE_APP_MAIN_URL + 'api/location',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
         },
-      })
+      )
         .then(data => data.json())
         .then(res => JSON.parse(JSON.stringify(res)))
       // console.log('fetchresult', result)
