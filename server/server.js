@@ -1,8 +1,8 @@
-const REDIS_URL = process.env.REDIS_URL
+const config = require('../shared/environment.js')
 
-require('dotenv').config()
+console.log('redis:', config.REDIS_URL)
 const redis = require('redis')
-const client = redis.createClient(REDIS_URL)
+const client = redis.createClient(config.REDIS_URL)
 exports.client = client
 
 const express = require('express')
@@ -30,12 +30,12 @@ app.use(
       httpOnly: false, // enable this to secure the cookie
       secure: false, // this cookie is not secure
     },
-    secret: process.env.SESSION_SECRET,
+    secret: config.SESSION_SECRET,
   })
 )
 
 console.log('this is dirname: ', __dirname)
-console.log('this is node_env: ', process.env.NODE_ENV)
+console.log('this is node_env: ', config.NODE_ENV)
 
 const apiroutes = require('./apiroutes')
 const routes = require('./routes')
@@ -55,6 +55,6 @@ app.use('/', routes)
 //   res.sendFile(path.join(__dirname, './dist/index.html'))
 // })
 
-const port = process.env.PORT || 8080
+const port = config.PORT || 8080
 app.listen(port)
 console.log(`app is listening on port: ${port}`)
