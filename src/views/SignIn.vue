@@ -17,10 +17,12 @@
       <button type="submit" @click="signIn">Sign In</button>
     </form>
     <button @click="getLocation">get location</button>
+    <div>{{ pippo }} {{ upperCaseEmail }}</div>
   </section>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 // const main_url = 'https://chrimox-meetup-app.herokuapp.com/'
 export default {
   name: 'SignIn',
@@ -32,6 +34,13 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapState(['pippo']),
+    upperCaseEmail() {
+      return 'A'
+    },
+  },
+
   methods: {
     // async signIn({ commit, state }) {
     async signIn(event) {
@@ -57,7 +66,7 @@ export default {
       else console.log({status: result.status, message: result.message}) //throw {status: result.status, message: result.message}
     },
     async getLocation() {
-      // const result = await fetch('http://localhost/api/location', {
+      // const result = await fetch('http://localhost:8089/api/location', {
       const result = await fetch('/api/location', {
         method: 'GET',
         headers: {
