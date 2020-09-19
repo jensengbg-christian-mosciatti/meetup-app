@@ -17,6 +17,7 @@
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "express-ip": "^1.0.4",
     "express-session": "^1.17.1",
     "redis": "^3.0.2",
     "register-service-worker": "^1.7.1",

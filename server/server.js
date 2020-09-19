@@ -14,6 +14,7 @@ exports.client = client
 
 const express = require('express')
 const cors = require('cors')
+const expressip = require('express-ip')
 
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
@@ -23,6 +24,7 @@ const path = require('path')
 
 const app = express()
 app.use(cors())
+app.use(expressip().getIpInfoMiddleware)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

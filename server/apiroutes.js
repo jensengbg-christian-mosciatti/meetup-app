@@ -93,8 +93,8 @@ router.post('/signin', (req, res) => {
 })
 
 router.get('/location', (req, res) => {
-  console.log(req.connection)
-  res.send({ status: 200 })
+  console.log('ipinfo: ', req.ipInfo)
+  res.send({ status: 200, message: req.ipInfo })
 })
 
 module.exports = router
