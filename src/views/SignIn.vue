@@ -67,18 +67,40 @@ export default {
     },
     async getLocation() {
       // const result = await fetch('http://localhost:8089/api/location', {
-      const result = await fetch('/api/location', {
+      // const result = await fetch('/api/location', {
+      const ip = await fetch('https://api.ipify.org?format=json', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
         },
       })
         .then(data => data.json())
-        .then(res => JSON.parse(JSON.stringify(res)))
+        .then(({ip}) => ip)
+
+      const city = await fetch(`https://tools.keycdn.com/geo.json?host=${ip}`, {
+        method: 'GET',
+        // mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      })
+        .then(data => data.json())
+        .then(res => res.data.geo.city)
+      console.log('this is city: ', city)
+      console.log('this is ip address ' + ip)
+
+      // const result = fetch('https://tools.keycdn.com/geo.json?host=', {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json;charset=utf-8',
+      //   },
+      // })
+      //   .then(data => data.json())
+      //   .then(res => JSON.parse(JSON.stringify(res)))
       // console.log('fetchresult', result)
-      if (result.status === 200) console.log('we are happy')
+      // if (result.status === 200) console.log('we are happy')
       //commit('saveUser', result)
-      else console.log({status: result.status, message: result.message}) //throw {status: result.status, message: result.message}
+      // else console.log({status: result.status, message: result.message}) //throw {status: result.status, message: result.message}
     },
   },
 }

@@ -8,6 +8,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  created() {
+    this.$store.dispatch('setPippo')
+    this.$store.dispatch('location/getLocation')
+  },
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
