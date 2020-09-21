@@ -1,3 +1,4 @@
+const config = require('../shared/environment.js')
 const { Router } = require('express')
 const bcrypt = require('bcrypt')
 
@@ -94,7 +95,23 @@ router.post('/signin', (req, res) => {
 
 router.get('/location', (req, res) => {
   console.log('ipinfo: ', req.ipInfo)
-  res.send({ status: 200, message: req.ipInfo })
+  // res.send({ status: 200, message: req.ipInfo })
+  const result = fetch(
+    `https://api.ipstack.com/${req.ipInfo}?access_key=+${config.IP_STACK_KEY}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    }
+  )
+    .then((data) => data.json())
+    .then((res) => JSON.parse(JSON.stringify(res)))
+  // console.log('fetchresult', result)
+  res.send({ status: result.status, message: result })
+  // if (result.status === 200)
+  //commit('saveUser', result)
+  // else console.log({ status: result.status, message: result.message })
 })
 
 module.exports = router
