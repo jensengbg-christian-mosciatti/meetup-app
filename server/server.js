@@ -31,7 +31,8 @@ const corsOptions = {
   },
   credentials: true,
 }
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
+app.use(cors())
 
 app.use(expressip().getIpInfoMiddleware)
 app.use(express.json())
