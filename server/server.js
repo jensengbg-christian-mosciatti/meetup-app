@@ -1,14 +1,10 @@
 const config = require('../shared/environment.js')
-// require('dotenv').config()
-// const config = {
-//   MAIN_URL: process.env.MAIN_URL,
-//   IP_STACK_KEY: process.env.IP_STACK_KEY,
-//   REDIS_URL: process.env.REDIS_URL,
-//   SESSION_SECRET: process.env.SESSION_SECRET,
-// }
 
-console.log('redis:', config.REDIS_URL)
 const redis = require('redis')
+const pifall = require('pifall')
+pifall(redis.RedisClient.prototype)
+pifall(redis.Multi.prototype)
+
 const client = redis.createClient(config.REDIS_URL)
 exports.client = client
 
@@ -23,7 +19,20 @@ const serveStatic = require('serve-static')
 const path = require('path')
 
 const app = express()
-app.use(cors())
+// app.use(cors())
+const whitelist = ['http://localhost:8080', 'http://localhost:80']
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+}
+app.use(cors(corsOptions))
+
 app.use(expressip().getIpInfoMiddleware)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -35,7 +44,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      maxAge: 36000000, //10 hours, in milliseconds
+      maxAge: 36000000, //36000000 10 hours, in milliseconds
       httpOnly: false, // enable this to secure the cookie
       secure: false, // this cookie is not secure
     },
@@ -43,26 +52,10 @@ app.use(
   })
 )
 
-console.log('this is dirname: ', __dirname)
-console.log('this is node_env: ', config.NODE_ENV)
-
 const apiroutes = require('./apiroutes')
 const routes = require('./routes')
 app.use('/api/', apiroutes)
 app.use('/', routes)
-
-// app.use(function (req, res, next) {
-//   console.log(req.url)
-//   next()
-// })
-
-//here we are configuring dist to serve app files
-// app.use('/', serveStatic(path.join(__dirname, './dist')))
-
-// this * route is to serve project on different page routes except root `/`
-// app.get(/.*/, function (req, res) {
-//   res.sendFile(path.join(__dirname, './dist/index.html'))
-// })
 
 const port = process.env.PORT || 8089
 app.listen(port)
